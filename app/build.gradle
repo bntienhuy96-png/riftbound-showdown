@@ -1,0 +1,27 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'dev.riftshowdown'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'dev.riftshowdown'
+        minSdk 26          // adaptive launcher icon only, no legacy PNGs needed
+        targetSdk 34
+        versionCode 1      // bump on every release you install over an older one
+        versionName '1.0'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
