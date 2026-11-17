@@ -168,7 +168,7 @@ button:focus-visible,select:focus-visible,.card:focus-visible{outline:2px solid 
 .row.one .pv{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:28px;line-height:1;gap:1px}
 .row.one .pv small{font-size:7.5px;letter-spacing:.08em;color:var(--muted)}
 .row.one .pv b{font-family:var(--font-display);font-size:14px}
-.half{padding:24px 16px 38px}
+.half{padding:24px 16px 22px}
 .ed{padding:8px}
 .btn.addu.addf{position:absolute;left:50%;bottom:-29px;transform:translateX(-50%);height:24px;padding:0 14px;font-size:11px;z-index:4}
 .card .n{position:relative}
@@ -537,6 +537,68 @@ html.min-page.dark-page,html.min-page.dark-page body{background:#232428}
 .ov .orb{display:none;position:absolute;inset:-18%;border-radius:50%;
   background:radial-gradient(circle at 40% 38%,#fff 0%,var(--oc2,#fff) 18%,var(--oc) 52%,transparent 72%);filter:blur(14px);
   transform:scale(var(--s0,.3));animation:em .8s cubic-bezier(.16,1,.3,1) .5s forwards}
+
+/* ============ Adaptive scale: --k (1 on a 360x640 phone, up to 1.7 on tablets) is set from JS ============ */
+.app{--k:1;grid-template-rows:minmax(0,1fr) calc(64px*var(--k)) minmax(0,1fr)}
+/* ghost slot: dimmed card with "+ UNIT", sits right after the last unit */
+.ghost{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:0;padding:4px;
+  border:1px dashed var(--gold);border-radius:2px;background:rgba(5,8,15,.18);color:var(--gold-hi);opacity:.5;cursor:pointer;
+  font-family:var(--font-display);transition:opacity .15s,background .15s}
+.ghost:hover,.ghost:active{opacity:.9;background:rgba(5,8,15,.4)}
+.ghost b{font-size:calc(30px*var(--k));font-weight:600;line-height:1}
+.ghost span{font-size:calc(11px*var(--k));font-weight:800;letter-spacing:.14em;padding-top:.1em}
+.grid[data-rows="2"] .ghost b{font-size:calc(22px*var(--k))}
+.grid[data-rows="2"] .ghost span{font-size:calc(9px*var(--k))}
+.app.min .ghost{border-radius:24px;border-color:var(--muted);color:var(--muted);background:transparent}
+.app.min .grid[data-rows="2"] .ghost{border-radius:18px}
+/* editor row at the bottom of each half: bigger controls on bigger screens */
+.ed{padding:calc(8px*var(--k));gap:calc(8px*var(--k))}
+.row.one{gap:calc(3px*var(--k))}
+.row.one .typ,.row.one .mb,.row.one .btn.sm,.row.one .pre button{height:calc(34px*var(--k))}
+.row.one .typ{font-size:calc(11.5px*var(--k));padding:0 calc(5px*var(--k))}
+.row.one .mb{min-width:calc(28px*var(--k));font-size:calc(12.5px*var(--k))}
+.row.one .btn.sm{font-size:calc(11.5px*var(--k));padding:0 calc(5px*var(--k))}
+.row.one .pre button{width:calc(24px*var(--k));font-size:calc(18px*var(--k))}
+.row.one .pv{min-width:calc(28px*var(--k))}
+.row.one .pv small{font-size:calc(7.5px*var(--k))}
+.row.one .pv b{font-size:calc(14px*var(--k))}
+.app .cm button,.app .grid[data-cols="4"] .cm button{height:calc(34px*var(--k));font-size:calc(20px*var(--k))}
+.app .grid[data-rows="2"] .cm button{height:calc(26px*var(--k));font-size:calc(15px*var(--k))}
+.app .dc .bt button{height:calc(34px*var(--k));font-size:calc(18px*var(--k))}
+.app .grid[data-rows="2"] .dc .bt button{height:calc(26px*var(--k));font-size:calc(15px*var(--k))}
+.app .card .m{font-size:calc(46px*var(--k))}
+.app .grid[data-cols="3"] .card .m{font-size:calc(38px*var(--k))}
+.app .grid[data-cols="4"] .card .m,.app .grid[data-cols="5"] .card .m{font-size:calc(30px*var(--k))}
+.app .grid[data-rows="2"] .card .m{font-size:calc(24px*var(--k))}
+.app .dc .d{font-size:calc(30px*var(--k))}
+.app .grid[data-rows="2"] .dc .d{font-size:calc(20px*var(--k))}
+.btn{height:calc(34px*var(--k));font-size:calc(13px*var(--k))}
+/* middle seam: controls and gem grow with the screen */
+.mid{grid-template-columns:minmax(0,1fr) calc(100px*var(--k)) minmax(0,1fr)}
+.seg button{height:calc(30px*var(--k));font-size:calc(10px*var(--k));padding:0 calc(6px*var(--k))}
+.seg .rs{font-size:calc(14px*var(--k))}
+.seg .yes,.seg .no{font-size:calc(12px*var(--k))}
+.mid .btn{height:calc(32px*var(--k))}
+.sd{width:calc(100px*var(--k));height:calc(100px*var(--k))}
+.sd .ring{width:calc(76px*var(--k));height:calc(76px*var(--k))}
+.sd .core{width:calc(62px*var(--k));height:calc(62px*var(--k))}
+.app.min .sd .core{width:calc(66px*var(--k));height:calc(66px*var(--k))}
+/* swirl emblem */
+.sd .swirl{position:relative;display:block;width:calc(40px*var(--k));height:calc(40px*var(--k));color:var(--gold-hi);line-height:0;
+  filter:drop-shadow(0 0 6px rgba(242,217,156,.45));animation:swirlSpin 28s linear infinite}
+.sd .swirl svg{width:100%;height:100%;display:block}
+.sd:not(:disabled):hover .swirl{animation-duration:6s}
+.sd:disabled .swirl{opacity:.5;animation:none}
+.app.min .sd .swirl{color:var(--on-fg);filter:none}
+.app.min .sd:disabled .swirl{color:var(--muted);opacity:1}
+@keyframes swirlSpin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.sd .swirl{animation:none}}
+/* wide screens: the editor row stretches to use the full width */
+@container (min-width:520px){
+  .row.one>*{flex:1 1 auto}
+  .row.one .pre{margin-left:0;display:flex}
+  .row.one .pv{flex:1}
+}
 </style>
 
 <div class="app" id="app"></div>
@@ -581,7 +643,7 @@ const STR={
     errLethal:'Gây đủ lethal 1 unit rồi mới chia sang unit khác.',errLeft:n=>`Còn ${n} damage chưa chia.`,cant:'Chưa thể Showdown',
     dec:'Giảm',inc:'Tăng',del:'Xoá unit',decM:'Giảm Might gốc',incM:'Tăng Might gốc',eff:'Loại hiệu ứng',
     blTitle:'B-line (Backline): phải được gán damage sau cùng',stTitle:'Unit bị stun không gây combat damage',pre:'Damage đã nhận từ trước',
-    subStun:ms=>` · Might ${ms}, trừ stun/chết`,subTap:' · chạm unit để gắn hiệu ứng',opp:'đối thủ',addBig:'+ THÊM UNIT',
+    subStun:ms=>` · Might ${ms}, trừ stun/chết`,subTap:' · chạm unit để gắn hiệu ứng',opp:'đối thủ',addBig:'+ THÊM UNIT',addU:'Thêm unit',
     oppUnit:'UNIT ĐỐI PHƯƠNG',dead:'CHẾT',alive:'SỐNG SÓT',deadPre:'Chết trước combat',lessD:'Bớt damage',moreD:'Thêm damage',
     ok:'Chia damage hợp lệ.',dmgSub:(a,n)=>`Chia damage · units của bạn ${a}/${n} sống`,left:'còn lại',noOpp:'Đối thủ không có unit.',noOppSub:n=>n?`${n} damage của bạn không có mục tiêu.`:'Không có gì để chia.',
     auto:'Tự chia',q:'Bạn là bên nào?',atkV:'Tấn công',defV:'Phòng thủ',one:'Chỉ cần một người chọn',
@@ -591,7 +653,7 @@ const STR={
     errLethal:'Assign lethal damage to one unit before moving to the next.',errLeft:n=>`${n} damage still unassigned.`,cant:"Can't Showdown yet",
     dec:'Decrease',inc:'Increase',del:'Remove unit',decM:'Decrease base Might',incM:'Increase base Might',eff:'Effect type',
     blTitle:'B-line (Backline): assigned damage last',stTitle:'Stunned units deal no combat damage',pre:'Damage already taken',
-    subStun:ms=>` · Might ${ms}, minus stunned/dead`,subTap:' · tap a unit to add effects',opp:'opponent',addBig:'+ ADD UNIT',
+    subStun:ms=>` · Might ${ms}, minus stunned/dead`,subTap:' · tap a unit to add effects',opp:'opponent',addBig:'+ ADD UNIT',addU:'Add unit',
     oppUnit:'OPPONENT UNIT',dead:'DEAD',alive:'ALIVE',deadPre:'Died before combat',lessD:'Less damage',moreD:'More damage',
     ok:'Damage split is valid.',dmgSub:(a,n)=>`Assign damage · your units ${a}/${n} alive`,left:'left',noOpp:'Opponent has no units.',noOppSub:n=>n?`Your ${n} damage has no target.`:'Nothing to assign.',
     auto:'Auto',q:'Which side are you?',atkV:'Attacking',defV:'Defending',one:'Only one player needs to pick',
@@ -677,12 +739,17 @@ function badges(u){
   return (u.tank?'<span class="tk">TANK</span>':'')+(u.backline?'<span class="tk bk">B-LINE</span>':'')+(u.stun?'<span class="tk st">STUN</span>':'')+(preDead(u)?`<span class="skull">${T('dead')}</span>`:'');
 }
 /* 1–2 units: 2 cols · 3: 3 · 4: 4 · 5+: two rows */
+/* AW = app width in px, AK = ui scale (both measured on resize). 5+ units share one row while each card keeps ~96px, else two rows */
+let AW=360, AK=1;
+const oneRow=n=>n<=4||(AW-32)/n>=96;
 function gridStyle(n){
-  const c=n<=2?2:n<=4?n:Math.ceil(n/2), r=n<=4?1:2;
-  return `style="grid-template-columns:repeat(${c},minmax(0,1fr));grid-template-rows:repeat(${r},minmax(min-content,1fr))" data-cols="${c}" data-rows="${r}"`;
+  const one=oneRow(n), c=n<=2?2:one?n:Math.ceil(n/2), r=one?1:2;
+  /* single row: cards stop growing at ~210px (scaled) and the row is centred, so a few units don't turn into giant slabs */
+  const col=one?`minmax(0,calc(var(--k,1)*210px))`:'minmax(0,1fr)';
+  return `style="grid-template-columns:repeat(${c},${col});grid-template-rows:repeat(${r},minmax(min-content,1fr));justify-content:center" data-cols="${c}" data-rows="${r}"`;
 }
-/* + UNIT floats at the bottom-centre of each half, sitting on the frame edge, so it costs no layout height */
-const addBtn=s=>S.sides[s].length<MAXU?`<button type="button" class="btn addu addf cut" data-a="add" data-s="${s}"><span>+ UNIT</span></button>`:'';
+/* the next free slot: a dimmed ghost card right after the last unit; tapping it adds a unit */
+const ghostCard=s=>`<button type="button" class="ghost" data-a="add" data-s="${s}" aria-label="${T('addU')}"><b>+</b><span>UNIT</span></button>`;
 function halfMight(s){
   const L=S.sides[s]; const sel=L.find(u=>u.id===S.sel[s]);
   const cards=L.map(u=>`<div class="card cut" role="button" tabindex="0" data-a="sel" data-s="${s}" data-id="${u.id}" aria-pressed="${u===sel}">
@@ -702,11 +769,11 @@ function halfMight(s){
         <span class="pre step" role="group" aria-label="${T('pre')}"><button type="button" data-a="pre" data-s="${s}" data-d="-1" ${preOf(sel)<=0?'disabled':''} aria-label="${T('dec')}">−</button><span class="pv"><small>DMG</small><b>${preOf(sel)}</b></span><button type="button" data-a="pre" data-s="${s}" data-d="1" aria-label="${T('inc')}">+</button></span></div>`
     :'';
   const ms=mightSum(s),t=total(s);
+  const nSlots=L.length+(L.length&&L.length<MAXU?1:0);
   return `<div class="hd"><div class="who"><span class="lab">${SIDE[s].toUpperCase()}</span><span class="sub">${L.length} unit${ms!==t?T('subStun',ms):L.length?T('subTap'):''}</span></div>
       <span class="tot num">${t}</span><span class="vs">${T('opp')}<br><b>${total(OPP[s])}</b></span></div>
-    ${L.length?`<div class="grid" ${gridStyle(L.length)}>${cards}</div>`:`<div class="grid one"><button type="button" class="addcard cut" data-a="add" data-s="${s}"><span>${T('addBig')}</span></button></div>`}
-    ${ed?`<div class="ed">${ed}</div>`:''}
-    ${L.length?addBtn(s):''}`;
+    ${L.length?`<div class="grid" ${gridStyle(nSlots)}>${cards}${L.length<MAXU?ghostCard(s):''}</div>`:`<div class="grid one"><button type="button" class="addcard cut" data-a="add" data-s="${s}"><span>${T('addBig')}</span></button></div>`}
+    ${ed?`<div class="ed">${ed}</div>`:''}`;
 }
 function halfDmg(s){
   const r=OPP[s], c=checks(r), E=S.sides[r];
@@ -760,9 +827,23 @@ const ICON={
   swords:`<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 17.5 3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/><path d="M14.5 6.5 18 3h3v3l-3.5 3.5"/><path d="M5 14l4 4"/><path d="M7 17l-3 3"/><path d="M3 19l2 2"/></svg>`
 };
 const GLOW={atk:'rgba(255,96,40,.45)',def:'rgba(60,175,255,.42)'};
+/* centre emblem: five solid curved blades + thin slivers spiralling round a hole (a whirl in the spirit of the Riftbound mark, but simpler) */
+const SWIRL=`<svg viewBox="0 0 100 100" aria-hidden="true" fill="currentColor"><path transform="rotate(0.0 50 50)" d="M50.0 1.0L53.6 2.0L57.1 3.3L60.4 4.9L63.5 6.7L66.4 8.6L69.1 10.8L71.6 13.1L73.8 15.6L75.7 18.2L77.4 20.9L78.9 23.7L80.1 26.5L81.0 29.3L81.7 32.2L82.2 35.0L82.4 37.8L82.3 40.5L82.1 43.2L81.6 45.7L80.9 48.2L80.1 50.5L79.1 52.7L77.9 54.8L76.6 56.6L75.2 58.3L73.6 59.9L72.0 61.2L70.3 62.4L68.6 63.4L66.9 64.1L66.9 64.1L68.4 63.2L69.7 62.0L70.9 60.7L71.9 59.2L72.7 57.5L73.4 55.8L73.9 54.1L74.2 52.3L74.3 50.4L74.3 48.6L74.1 46.7L73.8 44.9L73.4 43.1L72.9 41.4L72.2 39.6L71.5 37.9L70.7 36.2L69.9 34.5L69.0 32.7L68.0 30.9L66.9 29.1L65.8 27.1L64.6 25.0L63.3 22.7L61.8 20.3L60.1 17.5L58.2 14.4L56.0 10.9L53.3 6.8L50.0 1.0Z"/><path transform="rotate(72.0 50 50)" d="M50.0 1.0L53.6 2.0L57.1 3.3L60.4 4.9L63.5 6.7L66.4 8.6L69.1 10.8L71.6 13.1L73.8 15.6L75.7 18.2L77.4 20.9L78.9 23.7L80.1 26.5L81.0 29.3L81.7 32.2L82.2 35.0L82.4 37.8L82.3 40.5L82.1 43.2L81.6 45.7L80.9 48.2L80.1 50.5L79.1 52.7L77.9 54.8L76.6 56.6L75.2 58.3L73.6 59.9L72.0 61.2L70.3 62.4L68.6 63.4L66.9 64.1L66.9 64.1L68.4 63.2L69.7 62.0L70.9 60.7L71.9 59.2L72.7 57.5L73.4 55.8L73.9 54.1L74.2 52.3L74.3 50.4L74.3 48.6L74.1 46.7L73.8 44.9L73.4 43.1L72.9 41.4L72.2 39.6L71.5 37.9L70.7 36.2L69.9 34.5L69.0 32.7L68.0 30.9L66.9 29.1L65.8 27.1L64.6 25.0L63.3 22.7L61.8 20.3L60.1 17.5L58.2 14.4L56.0 10.9L53.3 6.8L50.0 1.0Z"/><path transform="rotate(144.0 50 50)" d="M50.0 1.0L53.6 2.0L57.1 3.3L60.4 4.9L63.5 6.7L66.4 8.6L69.1 10.8L71.6 13.1L73.8 15.6L75.7 18.2L77.4 20.9L78.9 23.7L80.1 26.5L81.0 29.3L81.7 32.2L82.2 35.0L82.4 37.8L82.3 40.5L82.1 43.2L81.6 45.7L80.9 48.2L80.1 50.5L79.1 52.7L77.9 54.8L76.6 56.6L75.2 58.3L73.6 59.9L72.0 61.2L70.3 62.4L68.6 63.4L66.9 64.1L66.9 64.1L68.4 63.2L69.7 62.0L70.9 60.7L71.9 59.2L72.7 57.5L73.4 55.8L73.9 54.1L74.2 52.3L74.3 50.4L74.3 48.6L74.1 46.7L73.8 44.9L73.4 43.1L72.9 41.4L72.2 39.6L71.5 37.9L70.7 36.2L69.9 34.5L69.0 32.7L68.0 30.9L66.9 29.1L65.8 27.1L64.6 25.0L63.3 22.7L61.8 20.3L60.1 17.5L58.2 14.4L56.0 10.9L53.3 6.8L50.0 1.0Z"/><path transform="rotate(216.0 50 50)" d="M50.0 1.0L53.6 2.0L57.1 3.3L60.4 4.9L63.5 6.7L66.4 8.6L69.1 10.8L71.6 13.1L73.8 15.6L75.7 18.2L77.4 20.9L78.9 23.7L80.1 26.5L81.0 29.3L81.7 32.2L82.2 35.0L82.4 37.8L82.3 40.5L82.1 43.2L81.6 45.7L80.9 48.2L80.1 50.5L79.1 52.7L77.9 54.8L76.6 56.6L75.2 58.3L73.6 59.9L72.0 61.2L70.3 62.4L68.6 63.4L66.9 64.1L66.9 64.1L68.4 63.2L69.7 62.0L70.9 60.7L71.9 59.2L72.7 57.5L73.4 55.8L73.9 54.1L74.2 52.3L74.3 50.4L74.3 48.6L74.1 46.7L73.8 44.9L73.4 43.1L72.9 41.4L72.2 39.6L71.5 37.9L70.7 36.2L69.9 34.5L69.0 32.7L68.0 30.9L66.9 29.1L65.8 27.1L64.6 25.0L63.3 22.7L61.8 20.3L60.1 17.5L58.2 14.4L56.0 10.9L53.3 6.8L50.0 1.0Z"/><path transform="rotate(288.0 50 50)" d="M50.0 1.0L53.6 2.0L57.1 3.3L60.4 4.9L63.5 6.7L66.4 8.6L69.1 10.8L71.6 13.1L73.8 15.6L75.7 18.2L77.4 20.9L78.9 23.7L80.1 26.5L81.0 29.3L81.7 32.2L82.2 35.0L82.4 37.8L82.3 40.5L82.1 43.2L81.6 45.7L80.9 48.2L80.1 50.5L79.1 52.7L77.9 54.8L76.6 56.6L75.2 58.3L73.6 59.9L72.0 61.2L70.3 62.4L68.6 63.4L66.9 64.1L66.9 64.1L68.4 63.2L69.7 62.0L70.9 60.7L71.9 59.2L72.7 57.5L73.4 55.8L73.9 54.1L74.2 52.3L74.3 50.4L74.3 48.6L74.1 46.7L73.8 44.9L73.4 43.1L72.9 41.4L72.2 39.6L71.5 37.9L70.7 36.2L69.9 34.5L69.0 32.7L68.0 30.9L66.9 29.1L65.8 27.1L64.6 25.0L63.3 22.7L61.8 20.3L60.1 17.5L58.2 14.4L56.0 10.9L53.3 6.8L50.0 1.0Z"/><path transform="rotate(30.0 50 50)" d="M50.0 8.0L52.2 8.7L54.3 9.6L56.3 10.5L58.2 11.5L60.0 12.7L61.7 13.9L63.4 15.1L64.9 16.5L66.3 17.9L67.7 19.4L68.9 20.9L70.0 22.5L71.0 24.1L71.9 25.7L72.6 27.4L73.3 29.0L73.8 30.7L74.3 32.4L74.6 34.0L74.8 35.7L74.9 37.3L75.0 38.9L74.9 40.4L74.7 42.0L74.5 43.4L74.1 44.9L73.7 46.2L73.2 47.6L72.6 48.8L72.0 50.0L72.0 50.0L72.5 48.8L73.0 47.6L73.3 46.3L73.5 45.0L73.6 43.7L73.7 42.3L73.6 40.9L73.5 39.5L73.3 38.1L73.0 36.7L72.6 35.3L72.2 33.9L71.6 32.5L71.0 31.1L70.4 29.6L69.6 28.2L68.8 26.8L67.9 25.3L67.0 23.9L65.9 22.4L64.8 20.9L63.6 19.5L62.3 18.0L60.9 16.5L59.4 15.0L57.7 13.6L56.0 12.1L54.1 10.7L52.1 9.3L50.0 8.0Z"/><path transform="rotate(102.0 50 50)" d="M50.0 8.0L52.2 8.7L54.3 9.6L56.3 10.5L58.2 11.5L60.0 12.7L61.7 13.9L63.4 15.1L64.9 16.5L66.3 17.9L67.7 19.4L68.9 20.9L70.0 22.5L71.0 24.1L71.9 25.7L72.6 27.4L73.3 29.0L73.8 30.7L74.3 32.4L74.6 34.0L74.8 35.7L74.9 37.3L75.0 38.9L74.9 40.4L74.7 42.0L74.5 43.4L74.1 44.9L73.7 46.2L73.2 47.6L72.6 48.8L72.0 50.0L72.0 50.0L72.5 48.8L73.0 47.6L73.3 46.3L73.5 45.0L73.6 43.7L73.7 42.3L73.6 40.9L73.5 39.5L73.3 38.1L73.0 36.7L72.6 35.3L72.2 33.9L71.6 32.5L71.0 31.1L70.4 29.6L69.6 28.2L68.8 26.8L67.9 25.3L67.0 23.9L65.9 22.4L64.8 20.9L63.6 19.5L62.3 18.0L60.9 16.5L59.4 15.0L57.7 13.6L56.0 12.1L54.1 10.7L52.1 9.3L50.0 8.0Z"/><path transform="rotate(174.0 50 50)" d="M50.0 8.0L52.2 8.7L54.3 9.6L56.3 10.5L58.2 11.5L60.0 12.7L61.7 13.9L63.4 15.1L64.9 16.5L66.3 17.9L67.7 19.4L68.9 20.9L70.0 22.5L71.0 24.1L71.9 25.7L72.6 27.4L73.3 29.0L73.8 30.7L74.3 32.4L74.6 34.0L74.8 35.7L74.9 37.3L75.0 38.9L74.9 40.4L74.7 42.0L74.5 43.4L74.1 44.9L73.7 46.2L73.2 47.6L72.6 48.8L72.0 50.0L72.0 50.0L72.5 48.8L73.0 47.6L73.3 46.3L73.5 45.0L73.6 43.7L73.7 42.3L73.6 40.9L73.5 39.5L73.3 38.1L73.0 36.7L72.6 35.3L72.2 33.9L71.6 32.5L71.0 31.1L70.4 29.6L69.6 28.2L68.8 26.8L67.9 25.3L67.0 23.9L65.9 22.4L64.8 20.9L63.6 19.5L62.3 18.0L60.9 16.5L59.4 15.0L57.7 13.6L56.0 12.1L54.1 10.7L52.1 9.3L50.0 8.0Z"/><path transform="rotate(246.0 50 50)" d="M50.0 8.0L52.2 8.7L54.3 9.6L56.3 10.5L58.2 11.5L60.0 12.7L61.7 13.9L63.4 15.1L64.9 16.5L66.3 17.9L67.7 19.4L68.9 20.9L70.0 22.5L71.0 24.1L71.9 25.7L72.6 27.4L73.3 29.0L73.8 30.7L74.3 32.4L74.6 34.0L74.8 35.7L74.9 37.3L75.0 38.9L74.9 40.4L74.7 42.0L74.5 43.4L74.1 44.9L73.7 46.2L73.2 47.6L72.6 48.8L72.0 50.0L72.0 50.0L72.5 48.8L73.0 47.6L73.3 46.3L73.5 45.0L73.6 43.7L73.7 42.3L73.6 40.9L73.5 39.5L73.3 38.1L73.0 36.7L72.6 35.3L72.2 33.9L71.6 32.5L71.0 31.1L70.4 29.6L69.6 28.2L68.8 26.8L67.9 25.3L67.0 23.9L65.9 22.4L64.8 20.9L63.6 19.5L62.3 18.0L60.9 16.5L59.4 15.0L57.7 13.6L56.0 12.1L54.1 10.7L52.1 9.3L50.0 8.0Z"/><path transform="rotate(318.0 50 50)" d="M50.0 8.0L52.2 8.7L54.3 9.6L56.3 10.5L58.2 11.5L60.0 12.7L61.7 13.9L63.4 15.1L64.9 16.5L66.3 17.9L67.7 19.4L68.9 20.9L70.0 22.5L71.0 24.1L71.9 25.7L72.6 27.4L73.3 29.0L73.8 30.7L74.3 32.4L74.6 34.0L74.8 35.7L74.9 37.3L75.0 38.9L74.9 40.4L74.7 42.0L74.5 43.4L74.1 44.9L73.7 46.2L73.2 47.6L72.6 48.8L72.0 50.0L72.0 50.0L72.5 48.8L73.0 47.6L73.3 46.3L73.5 45.0L73.6 43.7L73.7 42.3L73.6 40.9L73.5 39.5L73.3 38.1L73.0 36.7L72.6 35.3L72.2 33.9L71.6 32.5L71.0 31.1L70.4 29.6L69.6 28.2L68.8 26.8L67.9 25.3L67.0 23.9L65.9 22.4L64.8 20.9L63.6 19.5L62.3 18.0L60.9 16.5L59.4 15.0L57.7 13.6L56.0 12.1L54.1 10.7L52.1 9.3L50.0 8.0Z"/></svg>`;
 function gemBtn(disabled){
   return `<button type="button" class="sd" data-a="showdown" aria-label="Showdown" ${disabled?'disabled':''}><span class="ring"></span><span class="core"></span>
-    <span class="txt"><span class="up">SHOWDOWN</span><i></i><span>SHOWDOWN</span></span><span class="ico">${ICON.swords}</span></button>`;
+    <span class="swirl">${SWIRL}</span></button>`;
+}
+function measure(){
+  const el=document.getElementById('app'), W=el.clientWidth, H=el.clientHeight;
+  if(!W||!H) return false;
+  /* UI scale from the smaller of width / height (phone 360x640 = 1); the halves are height-limited, so height drives it */
+  const k=Math.round(Math.max(1,Math.min(1.7,W/400,H/700))*20)/20;
+  const sig=[5,6,7,8].map(n=>((W-32)/n>=96)+'').join();
+  const changed=W!==AW||k!==AK;
+  const relayout=sig!==measure.sig||k!==AK;
+  AW=W; AK=k; measure.sig=sig;
+  el.style.setProperty('--k',k);
+  return changed&&relayout;
 }
 function render(){renderView();}
 function renderView(){
@@ -911,5 +992,7 @@ document.addEventListener('change',e=>{
   const s=e.target.dataset&&e.target.dataset.type; if(!s) return;
   S.type[s]=e.target.value; save();
 });
+measure();
 render();
+new ResizeObserver(()=>{if(measure()&&!resolving&&!document.getElementById('app').classList.contains('resolving'))render();}).observe(document.getElementById('app'));
 </script>
