@@ -1,5 +1,7 @@
 name: Build APK
 on: [push, workflow_dispatch]
+permissions:
+  contents: write   # needed to publish the release
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,3 +37,14 @@ jobs:
         with:
           name: RiftboundShowdown-apk
           path: RiftboundShowdown.apk
+      # every build of main becomes a GitHub Release, so the APK has a plain download link:
+      # https://github.com/<owner>/<repo>/releases/latest/download/RiftboundShowdown.apk
+      - name: Publish release
+        if: github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "build-${{ github.run_number }}" RiftboundShowdown.apk \
+            --title "Build ${{ github.run_number }}" \
+            --notes "Debug APK built from ${{ github.sha }}. Installs over the previous build." \
+            --target "${{ github.sha }}" --latest
