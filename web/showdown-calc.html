@@ -4,7 +4,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Josefin+Sans:wght@500;600;700&family=Questrial&display=swap">
 <style>
-/* Layout: one 9:16 screen, two player halves facing each other (top rotated 180°), gold deco seam with a Showdown gem in the middle.
+/* Layout: one screen (designed at 9:16, fills any wider ratio: tablet / split-screen), two player halves facing each other (top rotated 180°), gold deco seam with a Showdown gem in the middle.
    Single deliberate dark look: ink navy, thin gold geometric frames, ember (attack) vs hextech blue (defend) glows. */
 :root{
   --ink:#05080f; --panel:#0a111d; --panel-2:#101a2a; --panel-3:#172338;
@@ -34,9 +34,8 @@ button:focus-visible,select:focus-visible,.card:focus-visible{outline:2px solid 
   clip-path:polygon(var(--c) 0,calc(100% - var(--c)) 0,100% var(--c),100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,var(--c) 100%,0 calc(100% - var(--c)),0 var(--c))}
 .cut>*{position:relative;z-index:1}
 
-.app{position:relative;height:100%;width:min(100%,calc((100vh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px)) * 9 / 16));margin:0 auto;
+.app{position:relative;height:100%;width:100%;margin:0 auto;
   display:grid;grid-template-rows:minmax(0,1fr) 64px minmax(0,1fr);background:var(--ink);overflow:hidden;container-type:inline-size}
-@supports (height:100dvh){.app{width:min(100%,calc((100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px)) * 9 / 16))}}
 
 /* Half */
 .half{position:relative;min-height:0;padding:24px 20px 26px}
