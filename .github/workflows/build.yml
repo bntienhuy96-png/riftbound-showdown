@@ -25,8 +25,13 @@ jobs:
             cat web/showdown-calc.html
             printf '\n%s\n%s\n' '</body>' '</html>'
           } > app/src/main/assets/index.html
-      - run: gradle assembleDebug
+      - name: Build APK
+        run: gradle assembleDebug
+        env:
+          VERSION_CODE: ${{ github.run_number }}
+      - name: Name the APK
+        run: cp app/build/outputs/apk/debug/app-debug.apk RiftboundShowdown.apk
       - uses: actions/upload-artifact@v4
         with:
           name: RiftboundShowdown-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: RiftboundShowdown.apk
